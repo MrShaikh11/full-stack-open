@@ -13,6 +13,7 @@ app.use(
 );
 
 app.use(express.json());
+app.use(express.static("dist"));
 
 let data = [
   {
@@ -63,8 +64,8 @@ app.get("/info", (request, response) => {
 });
 
 app.delete("/api/persons/:id", (request, response) => {
-  const id = Number(request.params.id);
-  data = data.filter((per) => per.id !== id);
+  const id = request.params.id; // Keep `id` as a string
+  data = data.filter((per) => per.id !== id); // Compare as strings
   response.status(204).end();
 });
 
